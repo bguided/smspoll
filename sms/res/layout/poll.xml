@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="8px"
     >
     
 	<LinearLayout
-		android:background="#000000"
+		android:id="@+id/layout_question"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
+		android:layout_height="wrap_content">
 	
 		<ImageView
 			android:src="@drawable/search"
@@ -19,44 +19,34 @@
 	
 		<EditText android:id="@+id/pollQuestion" 
 			android:textSize="18sp"
-			android:layout_margin="8px"
-			android:layout_width="0px"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/txt_default_question"
-			android:layout_weight="1"> 
+			android:text="@string/txt_default_question"> 
 		<requestFocus />
 		</EditText>
 	</LinearLayout>
      
     
-  <ListView android:id="@+id/android:list"
-     android:layout_width="fill_parent"
-     android:layout_height="0px"
-     android:layout_weight="1"
-     android:cacheColorHint="#00000000">
-  </ListView>
-  
-    <Button 
-        android:id="@+id/btnAcceptPoll"  
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content"
-        android:text="@string/btn_accept_poll"  />  
+  <ListView 
+	android:id="@+id/android:list"
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8px">
+  </ListView> 
   
   <LinearLayout
+  	android:id="@+id/layout_answer"
 	android:orientation="horizontal"
-	android:layout_width="wrap_content"
+	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-    android:layout_marginTop="6px"
-    android:layout_marginBottom="8px"
-    android:layout_marginLeft="8px"
-    android:layout_marginRight="8px"
-    android:background="#00000000">
+    android:layout_marginTop="12px"
+    android:layout_marginBottom="8px">
 	    
 	    
    		<ImageButton
    			android:id="@+id/button" 
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
+    		android:layout_width="60px"
+    		android:layout_height="60px"
     		android:src="@android:drawable/ic_menu_add"  />	
 	        
 
@@ -68,10 +58,16 @@
 	    	android:layout_marginBottom="8px"
 	    	android:layout_marginLeft="12px"
 	    	android:layout_marginRight="12px"
-	    	android:layout_width="210px"
+	    	android:layout_width="fill_parent"
 	    	android:layout_height="wrap_content"
 	    	android:layout_weight="1"/>
 
     </LinearLayout>    	
+  
+      <Button 
+        android:id="@+id/btnAcceptPoll"  
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:text="@string/btn_accept_poll"  /> 
   
 </LinearLayout>
