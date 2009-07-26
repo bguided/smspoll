@@ -22,6 +22,7 @@
 			android:layout_margin="8px"
 			android:layout_width="0px"
 			android:layout_height="wrap_content"
+			android:text="@string/txt_default_question"
 			android:layout_weight="1"> 
 		<requestFocus />
 		</EditText>
@@ -35,37 +36,42 @@
      android:cacheColorHint="#00000000">
   </ListView>
   
+    <Button 
+        android:id="@+id/btnAcceptPoll"  
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:text="@string/btn_accept_poll"  />  
   
-  	    <LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-    		android:layout_marginTop="6px"
-    		android:layout_marginBottom="8px"
-    		android:layout_marginLeft="8px"
-    		android:layout_marginRight="8px"
-    		android:background="#00000000">
+  <LinearLayout
+	android:orientation="horizontal"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+    android:layout_marginTop="6px"
+    android:layout_marginBottom="8px"
+    android:layout_marginLeft="8px"
+    android:layout_marginRight="8px"
+    android:background="#00000000">
 	    
 	    
-   	<ImageButton
-   	android:id="@+id/button" 
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:src="@android:drawable/ic_menu_add"  />	
+   		<ImageButton
+   			android:id="@+id/button" 
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:src="@android:drawable/ic_menu_add"  />	
 	        
 
      
-		      <EditText android:id="@+id/answer"
-	    	     android:textColor="#020905"
-	        	 android:textSize="18sp"
-	        	android:layout_marginTop="6px"
-	        	android:layout_marginBottom="8px"
-	         	android:layout_marginLeft="12px"
-	         	android:layout_marginRight="12px"
-	         	android:layout_width="210px"
-	         	android:layout_height="wrap_content"
-	         	android:layout_weight="1"/>
+		<EditText android:id="@+id/answer"
+			android:textColor="#020905"
+	    	android:textSize="18sp"
+	    	android:layout_marginTop="6px"
+	    	android:layout_marginBottom="8px"
+	    	android:layout_marginLeft="12px"
+	    	android:layout_marginRight="12px"
+	    	android:layout_width="210px"
+	    	android:layout_height="wrap_content"
+	    	android:layout_weight="1"/>
 
-     	    </LinearLayout>    	
+    </LinearLayout>    	
   
 </LinearLayout>

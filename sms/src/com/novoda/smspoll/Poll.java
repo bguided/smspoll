@@ -20,18 +20,28 @@ public class Poll extends ListActivity {
 	private ArrayList<HashMap<String, String>>	list		= new ArrayList<HashMap<String, String>>();
 	private SimpleAdapter						adapter;
 	private EditText							newAnswer;
-
+	private EditText							question;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.poll);
 		this.newAnswer = (EditText) findViewById(R.id.answer);
+		this.question =  (EditText) findViewById(R.id.pollQuestion);
+		
 		this.adapter = new SimpleAdapter(this, list, R.layout.row_answer, new String[] { ANSWER_KEY }, new int[] { R.id.answer });
 		setListAdapter(this.adapter);
 		
-		
-		((EditText) findViewById(R.id.pollQuestion)).setText("Why?");
+		((EditText) findViewById(R.id.pollQuestion)).setOnClickListener(getQuestionOnClickListener());
 		((ImageButton) findViewById(R.id.button)).setOnClickListener(getBtnClickListener());
+	}
+
+	private OnClickListener getQuestionOnClickListener() {
+		return new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				question.setText("");
+			}};
 	}
 
 	private OnClickListener getBtnClickListener() {
@@ -42,9 +52,9 @@ public class Poll extends ListActivity {
 					adapter.notifyDataSetChanged();
 					InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(newAnswer.getWindowToken(), 0);
-
+					newAnswer.setText("");
 				} catch (NullPointerException e) {
-					Log.i("[Dynamic Items]", "Tried to add null value");
+					Log.v(TAG, "Tried to add null value");
 				}
 			}
 		};
