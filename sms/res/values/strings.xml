@@ -2,6 +2,7 @@
 <resources>
     
     <string name="app_name">SMSPoll</string>
-<string name="txt_default_question">Question</string>
+<string name="txt_default_question">How many fingers?</string>
 <string name="btn_accept_poll">Accept Poll</string>
+<string name="menu_attach">Attach a poll</string>
 </resources>

@@ -1,5 +1,8 @@
 package com.novoda.smspoll;
 
+
+import org.w3c.dom.Text;
+
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
@@ -10,7 +13,11 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.Contacts;
 import android.telephony.gsm.SmsManager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -26,6 +33,7 @@ public class SMS extends Activity {
 	Button		btnSendSMS;
 	EditText	txtPhoneNo;
 	EditText	txtMessage;
+	private Menu	mOptMenu; 	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +112,7 @@ public class SMS extends Activity {
         Contacts.People.LABEL,
         Contacts.People.NAME,
     };
+	private static final String	TAG	= null;
     
 
 	private OnClickListener getNewSendSmsListener() {
@@ -118,6 +127,36 @@ public class SMS extends Activity {
 					Toast.makeText(getBaseContext(), "Please enter both phone number and message.", Toast.LENGTH_SHORT).show();
 			}
 		};
+	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+		mOptMenu = menu;
+
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.sms_menu_actions, menu);
+		return true;
+	}
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		Intent intent = new Intent();
+		switch (item.getItemId()) {
+			case R.id.attachpoll:
+				Log.v(TAG, "User selected to add a new Poll");
+				intent.setClassName(getBaseContext(), "com.novoda.smspoll.Poll");
+				startActivityForResult(intent, Constants.PICK_POLL_REQUEST);
+				return true;
+		}
+		return false;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		if (requestCode == Constants.PICK_POLL_REQUEST && resultCode == RESULT_OK) {
+			Log.v(TAG, "A message has been intercepted with contents[" + intent.getStringExtra(Constants.INTENT_DATA_SMS_CONTENTS) + "]");
+			Log.d(TAG, "Intent URI[" + intent.toURI() + "]");
+			txtMessage.setText(intent.getStringExtra(Constants.INTENT_DATA_SMS_CONTENTS));
+			txtMessage.invalidate();
+		}
 	}
 
 	private boolean pollIsValid(String phoneNo, String message) {
