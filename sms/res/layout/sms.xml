@@ -12,6 +12,7 @@
 		android:gravity="center_vertical">
 	
 		<ImageButton
+			android:id="@+id/addContact" 
 			android:src="@drawable/contact"
 			android:layout_marginLeft="8px"
 			android:layout_width="60px"
