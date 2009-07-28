@@ -61,8 +61,6 @@ public class Poll extends ListActivity {
 
 	private OnClickListener getAcceptBtnOnClickListener() {
 		return new OnClickListener() {
-
-			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
 				String question = "How many fingers?";

@@ -24,7 +24,6 @@ public class Strings {
 	    		mIdx++;
 				answer = matcher.group(1);
 			}
-		    
 		}
 
 		return answer;
