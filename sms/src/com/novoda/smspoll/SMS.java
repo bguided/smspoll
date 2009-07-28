@@ -164,8 +164,8 @@ public class SMS extends Activity {
 	}
 
 	private void sendSMS(String phoneNumber, String message) {
-		registerReceiver(new SmsSentReciever(), new IntentFilter(Constants.SENT));
-		registerReceiver(new SmsDeliveredReciever(), new IntentFilter(Constants.DELIVERED));
+//		registerReceiver(new SmsSentReciever(), new IntentFilter(Constants.SENT));
+//		registerReceiver(new SmsDeliveredReciever(), new IntentFilter(Constants.DELIVERED));
 
 		PendingIntent sentPI = PendingIntent.getBroadcast(this, 0, new Intent(Constants.SENT), 0);
 		PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0, new Intent(Constants.DELIVERED), 0);

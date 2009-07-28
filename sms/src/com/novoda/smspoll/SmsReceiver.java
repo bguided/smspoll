@@ -32,17 +32,10 @@ public class SmsReceiver extends BroadcastReceiver {
 				str += "\n";
 			}
 			 
-			if(str.contains("#")){
-				int hashIndex = str.indexOf("#");
-				String everythingAfterHash = str.substring(hashIndex);
-			    Matcher matcher = Pattern.compile("[1..9]").matcher(everythingAfterHash);
-
-			    if(matcher.matches()){
-			    	answer = Character.toString(everythingAfterHash.charAt(matcher.regionStart()));
-			    }
-			}
+//			answer = getChoice(str);
 
 			Toast.makeText(context, "Someone replied with answer:["+ answer +"], Answer 2 is in the lead" , Toast.LENGTH_SHORT).show();
 		}
 	}
+
 }

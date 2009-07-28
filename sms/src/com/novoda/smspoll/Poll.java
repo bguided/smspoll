@@ -117,16 +117,14 @@ public class Poll extends ListActivity {
 
 	private OnClickListener getNewAnswerOnCLickListener() {
 		return new OnClickListener() {
-			@Override
 			public void onClick(View v) {
-
+				
 			}
 		};
 	}
 
 	private OnClickListener getQuestionOnClickListener() {
 		return new OnClickListener() {
-			@Override
 			public void onClick(View v) {
 
 			}
