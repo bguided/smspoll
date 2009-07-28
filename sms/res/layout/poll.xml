@@ -12,8 +12,9 @@
 		android:layout_height="wrap_content">
 	
 		<ImageView
-			android:src="@drawable/search"
-			android:layout_marginLeft="8px"
+			android:src="@drawable/question"
+			android:layout_marginTop="6px"
+			android:layout_marginRight="6px"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" />
 	
