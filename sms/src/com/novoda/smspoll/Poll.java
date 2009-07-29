@@ -8,16 +8,13 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,20 +38,20 @@ public class Poll extends ListActivity {
 	private ArrayList<HashMap<String, String>>	list						= new ArrayList<HashMap<String, String>>();
 	private SimpleAdapter						answerAdapter;
 	private EditText							btn_newAnswer;
-	private EditText							btn_question;
+	private EditText							txt_question;
 	private ImageButton							btn_addAnswer;
 	private Button								btn_accept;
 	private ArrayList<String>					answers;
 	private int									mChosenPosition;
-	protected Object	mNewFileName;
-	private Object	sCurrFileName;
+	protected Object							mNewFileName;
+	private Object								sCurrFileName;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.poll);
 
-		this.btn_question = (EditText) findViewById(R.id.pollQuestion);
+		this.txt_question = (EditText) findViewById(R.id.pollQuestion);
 		this.btn_addAnswer = (ImageButton) findViewById(R.id.button);
 		this.btn_newAnswer = (EditText) findViewById(R.id.answer);
 		this.btn_accept = (Button) findViewById(R.id.btnAcceptPoll);
@@ -62,19 +59,43 @@ public class Poll extends ListActivity {
 		this.answerAdapter = new SimpleAdapter(this, list, R.layout.row_answer, new String[] { ANSWER_KEY }, new int[] { R.id.answer });
 		setListAdapter(this.answerAdapter);
 
-		this.btn_question.setOnClickListener(getQuestionOnClickListener());
+		this.txt_question.setOnClickListener(getQuestionOnClickListener());
 		this.btn_addAnswer.setOnClickListener(getAnswerAddBtnClickListener());
-		this.btn_newAnswer.setOnClickListener(getNewAnswerOnCLickListener());
 		this.btn_accept.setOnClickListener(getAcceptBtnOnClickListener());
 
-		setListLongClicks();
+		setListClickListeners();
 
 		addAnswer("Two");
 		addAnswer("Twenty");
 
 	}
 
-	private void setListLongClicks() {
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.poll_actions, menu);
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.accept:
+				acceptPoll();
+				return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.delete:
+				removeAnswer(mChosenPosition);
+				return true;
+		}
+		return true;
+	}
+
+	private void setListClickListeners() {
 		ListView lv = getListView();
 
 		lv.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
@@ -91,47 +112,45 @@ public class Poll extends ListActivity {
 				getListView().showContextMenu();
 			}
 		});
-
 	}
-	
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.delete:
-				removeAnswer(mChosenPosition);
-				return true;
-		}
 
-		return true;
+	private Intent getCannedPoll() {
+		Intent intent = new Intent();
+		int answers_total = 2;
+		txt_question.setText("How many fingers?");
+		intent.putExtra(INTENT_DATA_QUESTION, "How many fingers?");
+		intent.putExtra(INTENT_DATA_TOTAL_ANSWERS, answers_total);
+		answers = new ArrayList<String>();
+		answers.add(0, "1");
+		answers.add(1, "20");
+		answers.add(2, "40");
+		return intent;
+
 	}
 
 	private OnClickListener getAcceptBtnOnClickListener() {
 		return new OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent();
-				String question = "How many fingers?";
-				int answers_total = 2;
-				intent.putExtra(INTENT_DATA_QUESTION, question);
-				intent.putExtra(INTENT_DATA_TOTAL_ANSWERS, answers_total);
-				answers = new ArrayList<String>();
-				answers.add(0, "1");
-				answers.add(1, "20");
-				answers.add(2, "40");
-
-				String smsTxt = question + "     ";
-				int answerNumber;
-				for (int i = 0; i < answers_total; i++) {
-					answerNumber = i + 1;
-					smsTxt = smsTxt + "\n" + answerNumber + "." + answers.get(i);
-				}
-
-				smsTxt = smsTxt + "\nVote: # <option> ie. #1 or #2";
-
-				intent.putExtra(Constants.INTENT_DATA_SMS_CONTENTS, smsTxt);
-				setResult(RESULT_OK, intent);
-				finish();
+				acceptPoll();
 			}
 		};
+	}
+
+	private void acceptPoll() {
+		Intent intent = getCannedPoll();
+
+		String smsTxt = txt_question.getText() + "     ";
+		int answerNumber;
+		for (int i = 0; i < list.size(); i++) {
+			answerNumber = i + 1;
+			smsTxt = smsTxt + "\n" + answerNumber + "." + answers.get(i);
+		}
+
+		smsTxt = smsTxt + "\nVote: # <option> ie. #1 or #2";
+
+		intent.putExtra(Constants.INTENT_DATA_SMS_CONTENTS, smsTxt);
+		setResult(RESULT_OK, intent);
+		finish();
 	}
 
 	public static JSONObject getJSON(String path, Map params) {
@@ -157,14 +176,6 @@ public class Poll extends ListActivity {
 			}
 		}
 		return holder;
-	}
-
-	private OnClickListener getNewAnswerOnCLickListener() {
-		return new OnClickListener() {
-			public void onClick(View v) {
-
-			}
-		};
 	}
 
 	private OnClickListener getQuestionOnClickListener() {
@@ -208,7 +219,7 @@ public class Poll extends ListActivity {
 		list.add(item);
 		answerAdapter.notifyDataSetChanged();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void removeAnswer(int itemPosition) {
 		list.remove((HashMap<String, String>) answerAdapter.getItem(itemPosition));

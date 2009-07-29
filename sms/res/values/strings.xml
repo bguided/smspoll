@@ -6,6 +6,7 @@
 	<string name="menu_attach">Attach a poll</string>
 	<string name="title_ammend_option">Amend Option</string>
 	<string name="menu_action_option_delete">Delete</string>
+	<string name="accept_poll">Accept Poll</string>
 
 	<!-- Standard dialog actions -->
 	<string name="dialog_ok">Ok</string>
