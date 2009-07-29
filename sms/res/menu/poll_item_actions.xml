@@ -1,0 +1,4 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:menuCategory="secondary" android:visible="true" android:enabled="true" android:id="@+id/delete" android:title="@string/menu_action_option_delete"></item>
+
+</menu>

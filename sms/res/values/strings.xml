@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-    <string name="app_name">SMSPoll</string>
-<string name="txt_default_question">How many fingers?</string>
-<string name="btn_accept_poll">Accept Poll</string>
-<string name="menu_attach">Attach a poll</string>
+	<string name="app_name">SMSPoll</string>
+	<string name="txt_default_question">How many fingers?</string>
+	<string name="btn_accept_poll">Accept Poll</string>
+	<string name="menu_attach">Attach a poll</string>
+	<string name="title_ammend_option">Amend Option</string>
+	<string name="menu_action_option_delete">Delete</string>
+
+	<!-- Standard dialog actions -->
+	<string name="dialog_ok">Ok</string>
+	<string name="dialog_cancel">Cancel</string>
 </resources>
