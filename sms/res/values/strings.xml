@@ -7,7 +7,8 @@
 	<string name="title_ammend_option">Amend Option</string>
 	<string name="menu_action_option_delete">Delete</string>
 	<string name="accept_poll">Accept Poll</string>
-
+	<string name="btn_send_poll">Send Poll</string>
+	<string name="btn_attach_poll">Attach Poll</string>
 	<!-- Standard dialog actions -->
 	<string name="dialog_ok">Ok</string>
 	<string name="dialog_cancel">Cancel</string>

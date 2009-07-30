@@ -29,7 +29,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Poll extends ListActivity {
+public class EditPoll extends ListActivity {
 	private static final String					INTENT_DATA_OPTION			= "option1";
 	private static final String					INTENT_DATA_TOTAL_ANSWERS	= "no_of_optiions";
 	private static final String					INTENT_DATA_QUESTION		= "question";
@@ -49,14 +49,14 @@ public class Poll extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.poll);
+		setContentView(R.layout.edit_poll);
 
 		this.txt_question = (EditText) findViewById(R.id.pollQuestion);
 		this.btn_addAnswer = (ImageButton) findViewById(R.id.button);
 		this.btn_newAnswer = (EditText) findViewById(R.id.answer);
 		this.btn_accept = (Button) findViewById(R.id.btnAcceptPoll);
 
-		this.answerAdapter = new SimpleAdapter(this, list, R.layout.row_answer, new String[] { ANSWER_KEY }, new int[] { R.id.answer });
+		this.answerAdapter = new SimpleAdapter(this, list, R.layout.show_row_answer, new String[] { ANSWER_KEY }, new int[] { R.id.answer });
 		setListAdapter(this.answerAdapter);
 
 		this.txt_question.setOnClickListener(getQuestionOnClickListener());
@@ -67,7 +67,6 @@ public class Poll extends ListActivity {
 
 		addAnswer("Two");
 		addAnswer("Twenty");
-
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,6 +92,14 @@ public class Poll extends ListActivity {
 				return true;
 		}
 		return true;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		
+		
+		
 	}
 
 	private void setListClickListeners() {

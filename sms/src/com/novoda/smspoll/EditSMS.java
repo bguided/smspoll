@@ -28,7 +28,7 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SMS extends Activity {
+public class EditSMS extends Activity {
 	private static final String	TAG	= null;
 	Button						btnSendSMS;
 	ImageButton					btnAddContacts;
@@ -39,14 +39,14 @@ public class SMS extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.sms);
+		setContentView(R.layout.edit_sms);
 
 		btnSendSMS = (Button) findViewById(R.id.btnSendSMS);
 		txtPhoneNo = (EditText) findViewById(R.id.txtPhoneNo);
 		txtMessage = (EditText) findViewById(R.id.txtMessage);
 		btnAddContacts = (ImageButton) findViewById(R.id.addContact);
-
-		btnSendSMS.setOnClickListener(getNewSendSmsListener());
+		disableSendSMSButton();
+		
 		btnAddContacts.setOnClickListener(getNewAddContactsListener());
 
 		Cursor peopleCursor = getContentResolver().query(Contacts.People.CONTENT_URI, Constants.PEOPLE_PROJECTION, null, null, Contacts.People.DEFAULT_SORT_ORDER);
@@ -55,6 +55,16 @@ public class SMS extends Activity {
 		MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView) findViewById(R.id.txtPhoneNo);
 		textView.setAdapter(contactadapter);
 		textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+	}
+
+	private void disableSendSMSButton() {
+		btnSendSMS.setText("Attach Poll");		
+		btnSendSMS.setOnClickListener(getNewAttachPollListener());
+	}
+	
+	private void enableSendSMSButton() {
+		btnSendSMS.setText(R.string.btn_send_poll);
+		btnSendSMS.setOnClickListener(getNewSendSmsListener());
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,15 +77,19 @@ public class SMS extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		Intent intent = new Intent();
 		switch (item.getItemId()) {
 			case R.id.attachpoll:
-				Log.v(TAG, "User selected to add a new Poll");
-				intent.setClassName(getBaseContext(), "com.novoda.smspoll.Poll");
-				startActivityForResult(intent, Constants.PICK_POLL_REQUEST);
-				return true;
+				return attachPoll();
 		}
 		return false;
+	}
+
+	private boolean attachPoll() {
+		Log.v(TAG, "User selected to add a new Poll");
+		Intent intent = new Intent();
+		intent.setClassName(getBaseContext(), "com.novoda.smspoll.EditPoll");
+		startActivityForResult(intent, Constants.PICK_POLL_REQUEST);
+		return true;
 	}
 
 	@Override
@@ -118,6 +132,14 @@ public class SMS extends Activity {
 					sendSMS(phoneNo, message);
 				else
 					Toast.makeText(getBaseContext(), "Please enter both phone number and message.", Toast.LENGTH_SHORT).show();
+			}
+		};
+	}
+	
+	private OnClickListener getNewAttachPollListener() {
+		return new View.OnClickListener() {
+			public void onClick(View v) {
+				attachPoll();
 			}
 		};
 	}
