@@ -18,10 +18,10 @@ public class Strings {
 
 	    	boolean foundHashWithFollowingNo = matcher.groupCount() > 0;
 			if(foundHashWithFollowingNo){
-	    		for( int groupIdx = 0; groupIdx < matcher.groupCount()+1; groupIdx++ ){
-	    			System.out.println( "[" + mIdx + "][" + groupIdx + "] = " + matcher.group(groupIdx));
-	    		}
-	    		mIdx++;
+//	    		for( int groupIdx = 0; groupIdx < matcher.groupCount()+1; groupIdx++ ){
+//	    			System.out.println( "[" + mIdx + "][" + groupIdx + "] = " + matcher.group(groupIdx));
+//	    		}
+//	    		mIdx++;
 				answer = matcher.group(1);
 			}
 		}

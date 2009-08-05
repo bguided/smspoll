@@ -1,0 +1,42 @@
+BEGIN TRANSACTION;
+CREATE TABLE ANSWER (
+    answerId integer PRIMARY KEY AUTOINCREMENT,
+    pollId integer,
+    option text
+);
+INSERT INTO ANSWER VALUES(1,3,'2 fingers');
+INSERT INTO ANSWER VALUES(2,3,'20 fingers');
+INSERT INTO ANSWER VALUES(3,3,'40 fingers');
+INSERT INTO ANSWER VALUES(4,4,300);
+INSERT INTO ANSWER VALUES(5,4,800);
+INSERT INTO ANSWER VALUES(6,4,1000);
+
+CREATE TABLE POLL (
+    pollId integer PRIMARY KEY AUTOINCREMENT,
+    question text,
+    startdate date,
+    enddate date null
+);
+INSERT INTO POLL VALUES(3,'how many fingers','2009-07-31','2009-07-31');
+INSERT INTO POLL VALUES(4,'How many bones?','2009-08-02','null');
+
+CREATE TABLE RESPONDANT (
+    respondantId integer PRIMARY KEY AUTOINCREMENT,
+    pollId integer,
+    answerId integer,
+    name text
+);
+
+INSERT INTO RESPONDANT VALUES(1,3,1,'john');
+INSERT INTO RESPONDANT VALUES(2,3,2,'dick');
+INSERT INTO RESPONDANT VALUES(3,3,3,'harry');
+INSERT INTO RESPONDANT VALUES(4,4,0,'bobby sue');
+INSERT INTO RESPONDANT VALUES(5,4,0,'john boy');
+INSERT INTO RESPONDANT VALUES(6,4,4,'abe lincoln');
+INSERT INTO RESPONDANT VALUES(7,4,6,'jeremy paxton');
+
+CREATE TABLE sqlite_sequence(name,seq);
+INSERT INTO sqlite_sequence VALUES('POLL',4);
+INSERT INTO sqlite_sequence VALUES('ANSWER',6);
+INSERT INTO sqlite_sequence VALUES('RESPONDANT',7);
+COMMIT;
