@@ -64,7 +64,10 @@ public class ContentProvider extends android.content.ContentProvider {
 		public void onCreate(SQLiteDatabase db) {
 			SqlScanner scanner = new SqlScanner(mContext.getResources().openRawResource(R.raw.db_create));
 			while (scanner.hasNext()) {
-				db.execSQL(scanner.next());
+				String sql = scanner.next();
+				Log.i(LOGTAG, sql);
+				if (sql != null)
+					db.execSQL(sql + ";");
 			}
 			try {
 				scanner.close();

@@ -18,7 +18,7 @@
 	<uses-library android:name="android.test.runner" />
 	
     <provider
-		android:name=".contentprovider.ContentProvider"
+		android:name=".contentprovider.PollProvider"
 		android:authorities="com.novoda.smspoll" />
 	
 	<activity 

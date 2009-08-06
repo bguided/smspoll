@@ -1,10 +1,4 @@
-CREATE TABLE poll (
-    pollId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    question text,
-    startdate date,
-    enddate date null
-);
-
+CREATE TABLE poll ( pollId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,  question text,  startdate date,  enddate date null);
 CREATE TABLE answer (
     answerId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     pollId INTEGER,
